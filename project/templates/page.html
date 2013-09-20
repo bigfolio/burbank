@@ -1,0 +1,9 @@
+
+{% extends 'base.html' %}
+{% block content %}
+{% load tag_markdown %}
+<h2>{{c.title}}</h2>
+<p>{{c.body|my_markdown}}</p>
+
+
+{% endblock %}
