@@ -1,69 +1,67 @@
 from django.shortcuts import render_to_response
-from django.http import HttpResponseRedirect
-from django.views.decorators.csrf import csrf_exempt
-from django.contrib.auth.decorators import login_required
-from django.contrib.auth.models import User
-from django.contrib.auth import authenticate,login,get_user_model
+#from django.http import HttpResponseRedirect
+#from django.views.decorators.csrf import csrf_exempt
+#from django.contrib.auth.decorators import login_required
 from members.models import *
 from content.models import *
 from django.template import RequestContext
-import stripe
+from pymongo import Connection
+from bson.objectid import ObjectId
 
-@csrf_exempt
+db = Connection()
+json = db.gallery5.json
+
+def studio(request,_id):
+  print _id
+  allthem = json.find({'_id':ObjectId(_id)})
+  l =[]
+  for a in allthem:
+    try:
+      domain = a['domain12']
+    except:
+      domain = ''
+    for b in a['galleries']:
+      for c in b['images']:
+        print c['image_file']
+        if domain:
+          payload = domain + '/gallery/original/' + c['image_file']
+          l.append(payload)
+  return render_response(request,'studio.html',{'l':l})
+
+def studios(request):
+  allthem = json.find()
+  l = []
+  for x in allthem:
+    d = {}
+    d['business_name'] = x['business_name']
+    d['domain12'] = x['domain12']
+    d['meta_description'] = x['meta_description']
+    d['id'] = x['_id']
+    l.append(d)
+  return render_response(request,'studios.html',{'l':l})
+
+#def index(request):
+#  return render_response(request,'index.html')
 def index(request):
   pages = Page.objects.all()
-  if request.method == 'POST':
+  
+  allthem = json.find({'domain12' : {'$exists' : True}}).skip(10).limit(1)
+  i = 0
+  l = []
+  for a in allthem:
+    try:
+      domain = a['domain12']
+    except:
+      domain = ''
+    for b in a['galleries']:
+      for c in b['images']:
+        i += 1
+        if i > 10: break
+        if domain:
+          payload = domain + '/gallery/original/' + c['image_file']
+          l.append(payload)
 
-    paying = str(request.POST['email'])
-    usercreated = MyCustomEmailUser.objects.create_user(paying, 'A7S80D8A92455712SD#a9vk2100kasd7282ahjakh&*&@$^v')
-    user = authenticate(username=paying, password='A7S80D8A92455712SD#a9vk2100kasd7282ahjakh&*&@$^v')
-    login(request,user)
-    return render_response(request,'index1.html')
-  return render_response(request,'index.html')
-
-
-
-@csrf_exempt
-def pay(request):
-  if request.method == 'POST':
-    token = request.POST['stripeToken']
-    #user = User.objects.get(id=request.user.id)
-    user = get_user_model().objects.get(id=request.user.id)
-    charge(token,user)
-    return render_response(request,'thanks.html')
-  return render_response(request,'pay.html')
-@login_required
-def forbidden(request):
-  try:
-    c = Content.objects.get(front_page = True)
-  except:
-    c = {}
-  return render_response(request,'forbidden.html',{'c':c})
-
-
-
-
-def charge(token,user):
-  # Set your secret key: remember to change this to your live secret key in production
-  # See your keys here https://manage.stripe.com/account
-  stripe.api_key = "sk_test_TMlOC9anA6ITtOKACGQHHTaJ"
-
-  # Get the credit card details submitted by the form
-
-  # Create the charge on Stripe's servers - this will charge the user's card
-  try:
-    charge = stripe.Charge.create(
-      amount=2000, # amount in cents, again
-      currency="usd",
-      card=token,
-      description="payinguser@example.com"
-      )
-    user.paid = True
-    user.save()
-    print 'success'
-  except stripe.CardError, e:
-      # The card has been declined
-      print 'no charge'
+  return render_response(request,'index.html',{'l':l})
 
 def render_response(req, *args, **kwargs):
   kwargs['context_instance'] = RequestContext(req)

@@ -3,6 +3,6 @@ from client.views import *
 
 urlpatterns = patterns('',
   url(r'^$', index, name='index'),
-  url(r'^class/$', forbidden, name='class'),
-  url(r'^pay/$', pay, name='pay'),
+  url(r'^studios$', studios, name='studios'),
+  url(r'^studio/(\w+)/$', studio, name='studio'),
 )

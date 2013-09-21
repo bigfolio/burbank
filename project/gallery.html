@@ -1,6 +1,6 @@
-
 {% extends 'base.html' %}
 {% block content %}
-<h1><a href='/pay/'>Click to pay</a></h1>
-</form>
+{% for x in l %}
+{{x.name}}
+{% endfor %}
 {% endblock %}
