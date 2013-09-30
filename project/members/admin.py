@@ -1,3 +1,5 @@
+
+'''
 from django.contrib import admin
 from members.models import *
 from custom_user.models import *
@@ -6,7 +8,6 @@ admin.site.register(MyCustomEmailUser)
 #admin.site.register(EmailUser)
 #admin.site.unregister(EmailUser)
 
-'''
 from django.contrib import admin
 from django.contrib.auth.admin import UserAdmin
 from django.utils.translation import ugettext_lazy as _

@@ -9,7 +9,7 @@ TEMPLATE_DEBUG = DEBUG
 ADMINS = (
      ('Will Holloway', 'will@willholloway.net'),
 )
-
+ACCOUNT_ACTIVATION_DAYS = 7
 MANAGERS = ADMINS
 
 EMAIL_USE_TLS = True
@@ -99,13 +99,13 @@ INSTALLED_APPS = (
     'django.contrib.staticfiles',
     'django.contrib.admin',
     'south',
-    'custom_user',
+    'registration',
     'members',
     'content',
     'client',
 )
 #AUTH_USER_MODEL = 'custom_user.EmailUser'
-AUTH_USER_MODEL = 'members.MyCustomEmailUser'
+#AUTH_USER_MODEL = 'members.MyCustomEmailUser'
 from django.conf import global_settings
 TEMPLATE_CONTEXT_PROCESSORS = global_settings.TEMPLATE_CONTEXT_PROCESSORS + ('members.context_processors.seo',)
 '''

@@ -1,8 +1,6 @@
 import requests
-from pymongo import Connection
+import sys
 import time
-
-
 
 def get_domains():
   domains = []
@@ -13,17 +11,15 @@ def get_domains():
   return domains
 
 def cache_json(domains):
-  db = Connection()
-  json = db.gallery5.json
-  
   bad_domains = []
   for x in domains:
     try:
       r = requests.get('http://'+str(x)+'/inc/fget_json.php',timeout=3)
-      print r.status_code
+    except KeyboardInterrupt:
+      raise
     except:
+      print "Unexpected error:", sys.exc_info()[0],x
       bad_domains.append(x)
-      print 'bad',x
       continue
 
     if r.status_code == 200:
@@ -32,13 +28,13 @@ def cache_json(domains):
       except:
         bad_domains.append(x)
         continue
-      payload['domain12'] = x
-      json.insert(payload, upsert=True)
+    else: print r.status_code,x
+
   return bad_domains
 
 domains = get_domains()
 bad = cache_json(domains)
 
 import pickle
-outfile = open( "bad_domains", "wb")
+outfile = open( "bad_domainswrong", "wb")
 pickle.dump(bad, outfile)
