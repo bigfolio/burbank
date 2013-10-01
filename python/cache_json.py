@@ -2,14 +2,11 @@ import requests
 from pymongo import Connection
 import time
 
-
-
 def get_domains():
   domains = []
   with open('export.csv') as f:
     for line in f:
       domains.append(line.split('\n')[0])
-
   return domains
 
 def cache_json(domains):
@@ -17,6 +14,7 @@ def cache_json(domains):
   json = db.gallery5.json
   
   bad_domains = []
+
   for x in domains:
     try:
       r = requests.get('http://'+str(x)+'/inc/fget_json.php',timeout=3)

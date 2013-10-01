@@ -10,8 +10,7 @@ json = db.gallery3.json
 allthem = json.find({'domain12' : {'$exists' : True}})
 i = 0
 l = []
-for a in allthem:
-  
+for a in allthem:  
   try:
     domain = a['domain12']
   except:
@@ -24,11 +23,10 @@ for a in allthem:
       if domain:
         payload = domain + '/gallery/original/' + c['image_file']
         l.append(payload)
+
 print i,len(l) 
+
 t = template.render(l=l) 
 with open('out.html', "wb") as fh:
   fh.write(t.encode('utf8'))
-
-
-#count = ourmovies.count()
 
