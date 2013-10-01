@@ -14,8 +14,8 @@ MANAGERS = ADMINS
 
 EMAIL_USE_TLS = True
 EMAIL_HOST = 'smtp.gmail.com'
-EMAIL_HOST_USER = 'reagancoaching@gmail.com'
-EMAIL_HOST_PASSWORD = 'tomatoflexible'
+EMAIL_HOST_USER = ''
+EMAIL_HOST_PASSWORD = ''
 EMAIL_PORT = 587
 
 DATABASES = {
@@ -106,8 +106,8 @@ INSTALLED_APPS = (
 )
 #AUTH_USER_MODEL = 'custom_user.EmailUser'
 #AUTH_USER_MODEL = 'members.MyCustomEmailUser'
-from django.conf import global_settings
-TEMPLATE_CONTEXT_PROCESSORS = global_settings.TEMPLATE_CONTEXT_PROCESSORS + ('members.context_processors.seo',)
+#from django.conf import global_settings
+#TEMPLATE_CONTEXT_PROCESSORS = global_settings.TEMPLATE_CONTEXT_PROCESSORS + ('members.context_processors.seo',)
 '''
 TEMPLATE_CONTEXT_PROCESSORS = ("django.contrib.auth.context_processors.auth",
     "django.core.context_processors.debug",
