@@ -3,9 +3,9 @@ from django.contrib.auth.models import User
 import positions
 
 class Studio(models.Model):
-  domain = models.URLField(verify_exists=False, max_length=200, blank=True)
+  domain = models.URLField(max_length=200, blank=True)
   joined = models.BooleanField(default=True)
-  user = models.ForeignKey(user)
+  user = models.ForeignKey(User)
   
   owner_name= models.CharField(max_length=200) 
   business_name = models.CharField(max_length=200) 
@@ -38,6 +38,6 @@ class Gallery(models.Model):
 class Image(models.Model):
   gallery = models.ForeignKey(Gallery)
   image_file = models.CharField(max_length=200, blank=True)
-  image_caption = models.CharField(max_length=, blank=True)
+  image_caption = models.CharField(max_length=200, blank=True)
   order_num = positions.PositionField()
-s
+

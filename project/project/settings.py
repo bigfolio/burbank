@@ -103,6 +103,7 @@ INSTALLED_APPS = (
     'members',
     'content',
     'client',
+    'gallery',
 )
 #AUTH_USER_MODEL = 'custom_user.EmailUser'
 #AUTH_USER_MODEL = 'members.MyCustomEmailUser'
