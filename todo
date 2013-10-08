@@ -1,0 +1,15 @@
+create studio user for each studio
+.get everything
+write django orm queries
+
+new script to check for updates to sqlite3 from mongo
+
+
+how to run:
+
+venv install 
+run cache.py to create mongo
+syncdb to create db with django
+runserver
+manage.py mtop to transfer mongo to sqlite3
+

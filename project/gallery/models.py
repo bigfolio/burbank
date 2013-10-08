@@ -22,12 +22,15 @@ class Studio(models.Model):
   meta_keywords = models.TextField(blank=True)
   social_media = models.TextField(blank=True)
 
+  def __unicode__(self):
+    return self.business_name
+
 class Gallery(models.Model):
   studio = models.ForeignKey(Studio)
   gallery_name = models.CharField(max_length=200, blank=True)
 
-  gallery_id = models.IntegerField()
-  category_id = models.IntegerField()
+  #gallery_id = models.IntegerField()
+  #category_id = models.IntegerField()
   gallery_name = models.CharField(max_length=200, blank=True)
   gallery_hidden = models.BooleanField(default=False)
   meta_title = models.CharField(max_length=200, blank=True)
