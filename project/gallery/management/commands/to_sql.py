@@ -12,7 +12,7 @@ class Command(BaseCommand):
     db = Connection()
     json = db.gallery.json
 
-    studios = json.find({'domain12' : {'$exists' : True}},limit=10)
+    studios = json.find({'domain12' : {'$exists' : True}})
     i = 0
     for studio in studios:  
       i += 1
