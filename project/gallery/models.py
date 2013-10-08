@@ -23,7 +23,7 @@ class Studio(models.Model):
   social_media = models.TextField(blank=True)
 
   def __unicode__(self):
-    return self.business_name
+    return self.domain
 
 class Gallery(models.Model):
   studio = models.ForeignKey(Studio)
@@ -38,9 +38,14 @@ class Gallery(models.Model):
   show_pin_it_button = models.BooleanField(default=True)
   category_name = models.CharField(max_length=100, blank=True)
 
+  def __unicode__(self):
+    return self.gallery_name
+
 class Image(models.Model):
   gallery = models.ForeignKey(Gallery)
   image_file = models.CharField(max_length=200, blank=True)
   image_caption = models.CharField(max_length=200, blank=True)
   order_num = positions.PositionField()
 
+  def __unicode__(self):
+    return self.image_file

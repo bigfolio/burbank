@@ -9,7 +9,7 @@ from pymongo import Connection
 from bson.objectid import ObjectId
 
 db = Connection()
-json = db.gallery5.json
+json = db.gallery.json
 
 def studio(request,_id):
   print _id

@@ -11,7 +11,7 @@ def get_domains():
 
 def cache_json(domains):
   db = Connection()
-  json = db.gallery5.json
+  json = db.gallery.json
   
   bad_domains = []
 

@@ -10,7 +10,7 @@ class Command(BaseCommand):
 
   def handle(self, *args, **options):
     db = Connection()
-    json = db.gallery5.json
+    json = db.gallery.json
 
     studios = json.find({'domain12' : {'$exists' : True}},limit=10)
     i = 0
